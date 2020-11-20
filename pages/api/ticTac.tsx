@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {escapeJson} from "@hapi/hoek";
+import {clientMessage, fieldValue} from "../../Types";
 
 
 
@@ -32,7 +33,8 @@ export default function foo(req: NextApiRequest, res: NextApiResponse) {
 }
 
 
-function saveNewHistory(clientBoard, clientPlayer) {
+
+function saveNewHistory(clientBoard, clientPlayer: fieldValue) {
     let newNextPlayer;
     if(clientPlayer == "X") {newNextPlayer = "O"} else {newNextPlayer = "X"}
 
@@ -40,11 +42,31 @@ function saveNewHistory(clientBoard, clientPlayer) {
 
     history.push({squares: clientBoard, player: newNextPlayer, winner: win});
 
-    console.log(history);
+    if(win == undefined) {
+        isFieldFull(clientBoard)
+    }
 }
 
 
-function calculateWinner(squares) {
+
+function isFieldFull(squares: fieldValue[]) {
+    console.log("check board for full");
+    let fullFields = 0;
+    squares.forEach(element => {
+        if (element == "X" || element == "O")    {
+            fullFields++;
+        }
+    })
+
+    if(fullFields == 9) {
+        console.log("all full");
+        history = [{squares: Array(9).fill(undefined), player: "X", winner: undefined}];
+    }
+}
+
+
+
+function calculateWinner(squares: fieldValue[]) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
