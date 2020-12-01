@@ -61,7 +61,7 @@ async function tic(req, res) {
     }
 
 
-//todo geht nicht frag aber bitte ncht wieso danke
+
     if (req.method === 'DELETE') {
         const sessionId = req.body.id
 
@@ -86,7 +86,7 @@ function saveNewStep(sessionId, clientBoard): void {
     })
 
 
-    //todo geht nicht frag aber bitte ncht wieso danke
+
     if (win === undefined && isFieldFull(clientBoard)) {
         nextPlayerInSession[sessionId] = {nextPlayerIs: "X"}
         sessionBoards[sessionId] = [{squares: Array(9).fill(undefined), player: "X", winner: undefined}];
